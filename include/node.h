@@ -8,6 +8,11 @@ struct Node {
   Node <T>* prev = 0;
   Node () {}
   Node (T data): data(data) {}
+  ~Node () {}
+  void killAll () {
+    if (next) next -> killAll();
+    delete this;
+  }
 };
 
 #endif

@@ -6,7 +6,7 @@ ODIR = obj
 
 _DEPS = bidirectional_iterator.h circular.h forward.h \
 				forward_iterator.h iterator.h linked.h list.h \
-				node.h
+				node.h color.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 _OBJ = main.o tester.o mocker.o 
