@@ -4,6 +4,6 @@
 ```bash
 cd src/
 make
-./sort
+./run
 ```
 
