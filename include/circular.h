@@ -92,13 +92,27 @@ public:
     std::swap(this -> head, this -> tail);
   }
 
-  std::string name () { return "Circular Linked List"; }
+  std::string name () const { return "Circular Linked List"; }
 
-  BidirectionalIterator <T> begin () {}
+  BidirectionalIterator <T> begin () const { return BidirectionalIterator <T> (this -> head); }
 
-  BidirectionalIterator <T> end () {}
+  BidirectionalIterator <T> end () const { return BidirectionalIterator <T> (nullptr); }
 
-  void merge (CircularLinkedList <T> list) {}
+  void merge (CircularLinkedList <T>& list) {
+    if (list.empty()) return;
+    if (this -> nodes == 0) {
+      this -> head = list.head;
+      this -> tail = list.tail;
+    } else {
+      this -> tail -> next = list.head;
+      list.head -> prev = this -> tail;
+      this -> tail = list.tail;
+      this -> head -> prev = this -> tail;
+      this -> tail -> next = this -> head;
+    }
+    this -> nodes += list.nodes;
+  }
+
 };
 
 #endif

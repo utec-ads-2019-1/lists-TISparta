@@ -1,16 +1,10 @@
 #ifndef TESTER_H
 #define TESTER_H
 
-#include <stdexcept>
-#include <iostream>
-#include <assert.h>
-
 #include "mocker.h"
 #include "forward.h"
 #include "linked.h"
 #include "circular.h"
-
-using namespace std;
 
 #define NUMBER_OF_TESTS 1
 

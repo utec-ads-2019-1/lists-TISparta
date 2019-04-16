@@ -17,11 +17,11 @@ namespace Color {
   class Modifier {
     Code code;
     public:
-     Modifier(Code pCode) : code(pCode) {}
-     friend std::ostream&
-     operator<<(std::ostream& os, const Modifier& mod) {
-       return os << "\033[" << mod.code << "m";
-     }
+      Modifier(Code pCode) : code(pCode) {}
+      friend std::ostream&
+      operator << (std::ostream& os, const Modifier& mod) {
+        return os << "\033[" << mod.code << "m";
+      }
   };
   static Modifier black(BLACK);
   static Modifier red(RED);

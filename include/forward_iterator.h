@@ -1,21 +1,28 @@
-#ifndef FORWARD_ITERATOR_H
-#define FORWARD_ITERATOR_H
+#ifndef ITERATOR_H
+#define ITERATOR_H
 
-#include "iterator.h"
+#include <stdexcept>
+#include <exception>
+#include "node.h"
 
 template <typename T>
-class ForwardIterator: public Iterator <T> {
+class ForwardIterator {
+protected:
+ Node <T>* current;
+
 public:
-  ForwardIterator (): Iterator <T> () {};
-  ForwardIterator (Node<T>* node): Iterator <T> (node) {};
-
-  ForwardIterator <T> operator = (ForwardIterator <T> other) {}
-
-  bool operator != (ForwardIterator <T> other) {}
-
-  ForwardIterator <T> operator ++ () {}
-
-  T operator * () {}
+  ForwardIterator (): current(nullptr) {};
+  ForwardIterator (Node <T>* node): current(node) {};
+  T operator * () { return this -> current -> data; };
+  bool operator != (ForwardIterator <T> other) { return &(this -> current) != &(other.current); }
+  ForwardIterator <T> operator = (ForwardIterator <T> other) { this -> current = other.current; }
+  ForwardIterator <T> operator ++ () {
+    if (!this -> current) {
+      throw std::runtime_error("The iterator has no data");
+    }
+    this -> current = this -> current -> next;
+    return (*this);
+  }
 };
 
 #endif

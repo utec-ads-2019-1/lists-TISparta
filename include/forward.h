@@ -1,7 +1,6 @@
 #ifndef FORWARD_H
 #define FORWARD_H
 
-
 #include "list.h"
 #include "forward_iterator.h"
 
@@ -79,13 +78,23 @@ public:
     std::swap(this -> head, this -> tail);
   }
 
-  inline std::string name () { return "Forward List"; }
+  inline std::string name () const { return "Forward List"; }
 
-  ForwardIterator <T> begin () {}
+  ForwardIterator <T> begin () const { return ForwardIterator <T> (this -> head); }
 
-  ForwardIterator <T> end () {}
+  ForwardIterator <T> end () const { return ForwardIterator <T> (nullptr); }
 
-  void merge (ForwardList <T> list) {}
+  void merge (ForwardList <T>& list) {
+    if (list.empty()) return;
+    if (this -> nodes == 0) {
+      this -> head = list.head;
+      this -> tail = list.tail;
+    } else {
+      this -> tail -> next = list.head;
+      this -> tail = list.tail;
+    }
+    this -> nodes += list.nodes;
+  }
 };
 
 #endif

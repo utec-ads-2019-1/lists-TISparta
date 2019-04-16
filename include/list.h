@@ -1,11 +1,11 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include "node.h"
 #include <string>
 #include <stdexcept>
 #include <exception>
 #include <algorithm>
+#include "node.h"
 
 template <typename T>
 class List {
@@ -17,12 +17,12 @@ protected:
 public:
   List (): head(nullptr), tail(nullptr), nodes(0) {};
   ~List () { (*this).clear(); }
-  inline bool empty () { return this -> nodes == 0; }
-  inline int size () { return this -> nodes; }
-  T operator [] (int index) { return (*this).at(index) -> data; }
-  T front ();
-  T back ();
-  Node <T>* at (int);
+  inline bool empty () const { return this -> nodes == 0; }
+  inline int size () const { return this -> nodes; }
+  T operator [] (int index) const { return (*this).at(index) -> data; }
+  T front () const;
+  T back () const;
+  Node <T>* at (int) const;
   void clear ();
   void sort ();
   virtual void push_front (T) = 0;
@@ -30,11 +30,11 @@ public:
   virtual void pop_front () = 0;
   virtual void pop_back () = 0;
   virtual void reverse () = 0;
-  virtual std::string name () = 0;
+  virtual std::string name () const = 0;
 };
 
 template <typename T>
-T List <T>::front () {
+T List <T>::front () const {
   if (!this -> head) {
     throw std::runtime_error("The list is empty");
   }
@@ -42,7 +42,7 @@ T List <T>::front () {
 }
 
 template <typename T>
-T List <T>::back () {
+T List <T>::back () const {
   if (!this -> head) {
     throw std::runtime_error("The list is empty");
   }
@@ -50,7 +50,7 @@ T List <T>::back () {
 }
 
 template <typename T>
-Node <T>* List <T>::at (int index) {
+Node <T>* List <T>::at (int index) const {
   if (not (0 <= index and index < this -> nodes)) {
     throw std::out_of_range("The index is out of range");
   }

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "tester.h"
 #include "color.h"
 
@@ -12,7 +13,7 @@ struct Test {
       "Running tests for " << testName << std::endl << Color::normal;
   }
   void showSubTestName (const string& testName) {
-    std::cout << Color::bold << Color::cyan << "For int" << std::endl << Color::normal;
+    std::cout << Color::bold << Color::cyan << testName << std::endl << Color::normal;
   }
   void showResults () {
     if (incorrect == 0) {
@@ -113,7 +114,7 @@ void Tester::testList (Collection collection) {
   test.check(list -> size() == 0, "The " + list -> name() + " size or clear is not working");
   test.check(list -> empty() == true, "The " + list -> name() + " empty is not working");
 
-//  testSpecifics(collection, list);
+  testSpecifics(collection, list);
 }
 
 template <typename T>
@@ -149,7 +150,6 @@ void Tester::testForward (ForwardList <T>* list) {
   Mocker mocker;
   unsigned int size = mocker.generateRandomInt(5);
   T* elements = mocker.generateRandomArray <T> (size);
-
   ForwardList <T>* list1 = new ForwardList <T>;
   list1 -> push_back(elements[0]);
   list1 -> push_back(elements[1]);
@@ -159,6 +159,7 @@ void Tester::testForward (ForwardList <T>* list) {
 
   list -> merge(*list1);
   test.check(list -> size() == 5, "The " + list -> name() + " merge is not working");
+
   auto it = list -> begin();
   ++it;
   test.check(*it == elements[1], "The " + list -> name() + " iterator is not working");
@@ -171,58 +172,58 @@ template <typename T>
 void Tester::testLinked (LinkedList <T>* list) {
   Mocker mocker;
   unsigned int size = mocker.generateRandomInt(5);
-  T* elements = mocker.generateRandomArray<T>(size);
+  T* elements = mocker.generateRandomArray <T> (size);
 
-  LinkedList<T>* list1 = new LinkedList<T>;
-  list1->push_back(elements[0]);
-  list1->push_back(elements[1]);
-  list1->push_back(elements[2]);
-  list1->push_back(elements[3]);
-  list1->push_back(elements[4]);
+  LinkedList <T>* list1 = new LinkedList <T>;
+  list1 -> push_back(elements[0]);
+  list1 -> push_back(elements[1]);
+  list1 -> push_back(elements[2]);
+  list1 -> push_back(elements[3]);
+  list1 -> push_back(elements[4]);
 
-  list->merge(*list1);
-  test.check(list->size() == 5, "The " + list->name() + " merge is not working");
+  list -> merge(*list1);
+  test.check(list -> size() == 5, "The " + list -> name() + " merge is not working");
 
-  auto it = list->begin();
+  auto it = list -> begin();
   ++it;
-  test.check(*it == elements[1], "The " + list->name() + " iterator is not working");
+  test.check(*it == elements[1], "The " + list -> name() + " iterator is not working");
   ++it;
   ++it;
   --it;
-  test.check(*it == elements[2], "The " + list->name() + " iterator is not working");
-  test.check(it != list->end(), "The " + list->name() + " iterator is not working");
+  test.check(*it == elements[2], "The " + list -> name() + " iterator is not working");
+  test.check(it != list -> end(), "The " + list -> name() + " iterator is not working");
 }
 
 template <typename T>
 void Tester::testCircularLinked (CircularLinkedList <T>* list) {
   Mocker mocker;
   unsigned int size = mocker.generateRandomInt(5);
-  T* elements = mocker.generateRandomArray<T>(size);
+  T* elements = mocker.generateRandomArray <T> (size);
 
-  CircularLinkedList<T>* list1 = new CircularLinkedList<T>;
-  list1->push_back(elements[0]);
-  list1->push_back(elements[1]);
-  list1->push_back(elements[2]);
-  list1->push_back(elements[3]);
-  list1->push_back(elements[4]);
+  CircularLinkedList <T>* list1 = new CircularLinkedList <T>;
+  list1 -> push_back(elements[0]);
+  list1 -> push_back(elements[1]);
+  list1 -> push_back(elements[2]);
+  list1 -> push_back(elements[3]);
+  list1 -> push_back(elements[4]);
 
-  list->merge(*list1);
-  test.check(list->size() == 5, "The " + list->name() + " merge is not working");
+  list -> merge(*list1);
+  test.check(list -> size() == 5, "The " + list -> name() + " merge is not working");
 
-  auto it = list->begin();
+  auto it = list -> begin();
   ++it;
-  test.check(*it == elements[1], "The " + list->name() + " iterator is not working");
+  test.check(*it == elements[1], "The " + list -> name() + " iterator is not working");
   ++it;
   ++it;
   --it;
-  test.check(*it == elements[2], "The " + list->name() + " iterator is not working");
-  test.check(it != list->end(), "The " + list->name() + " iterator is not working");
+  test.check(*it == elements[2], "The " + list -> name() + " iterator is not working");
+  test.check(it != list -> end(), "The " + list -> name() + " iterator is not working");
   ++it;
   ++it;
   ++it;
   ++it;
-  test.check(*it == elements[1], "The " + list->name() + " iterator is not working");
+  test.check(*it == elements[1], "The " + list -> name() + " iterator is not working");
   --it;
   --it;
-  test.check(*it == elements[4], "The " + list->name() + " iterator is not working");
+  test.check(*it == elements[4], "The " + list -> name() + " iterator is not working");
 }

@@ -1,11 +1,11 @@
 IDIR = ../include
 CXX = g++
-CXXFLAGS = -w -O2 -I $(IDIR)
+CXXFLAGS = -std=c++11 -w -O2 -I $(IDIR)
 
 ODIR = obj
 
 _DEPS = bidirectional_iterator.h circular.h forward.h \
-				forward_iterator.h iterator.h linked.h list.h \
+				forward_iterator.h linked.h list.h \
 				node.h color.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
@@ -26,6 +26,4 @@ $(ODIR)/%.o: %.cpp $(DEPS) | $(ODIR)
 
 clean:
 	rm -rf $(ODIR)
-	rm sort
-
-
+	rm run

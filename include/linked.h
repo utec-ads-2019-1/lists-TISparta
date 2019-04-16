@@ -82,13 +82,24 @@ public:
     std::swap(this -> head, this -> tail);
   }
 
-  inline std::string name () { return "Linked List"; }
+  inline std::string name () const { return "Linked List"; }
 
-  BidirectionalIterator <T> begin () {}
+  BidirectionalIterator <T> begin () const { return BidirectionalIterator <T> (this -> head); }
 
-  BidirectionalIterator <T> end () {}
+  BidirectionalIterator <T> end () const { return BidirectionalIterator <T> (nullptr); }
 
-  void merge (LinkedList <T> list) {}
+  void merge (const LinkedList <T>& list) {
+    if (list.empty()) return;
+    if (this -> nodes == 0) {
+      this -> head = list.head;
+      this -> tail = list.tail;
+    } else {
+      this -> tail -> next = list.head;
+      list.head -> prev = this -> tail;
+      this -> tail = list.tail;
+    }
+    this -> nodes += list.nodes;
+  }
 };
 
 #endif
