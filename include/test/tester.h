@@ -6,7 +6,7 @@
 #include "lists/linked.h"
 #include "lists/circular.h"
 
-#define NUMBER_OF_TESTS 1
+#define NUMBER_OF_TESTS 10
 
 enum Collection { forward_list, linked_list, circular_list };
 

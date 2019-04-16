@@ -48,6 +48,8 @@ void Tester::execute () {
     List <int>* list = getCollection <int> (collections[i]);
     test.showTestName(list -> name());
     for (int j = 0; j < NUMBER_OF_TESTS; j++) {
+      std::cout << "Running test " << j + 1 << std::endl;
+
       test.init();
       test.showSubTestName("For int");
       testList <int> (collections[i]);
