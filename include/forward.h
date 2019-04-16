@@ -1,35 +1,15 @@
 #ifndef FORWARD_H
 #define FORWARD_H
 
-#include <stdexcept>
-#include <exception>
-#include <algorithm>
 
 #include "list.h"
 #include "forward_iterator.h"
-
-// TO DELETE
-#include <iostream>
 
 template <typename T>
 class ForwardList: public List <T> {
 public:
   ForwardList (): List <T> () {}
 
-  T front () {
-    if (!this -> head) {
-      throw std::runtime_error("The list is empty");
-    }
-    return this -> head -> data;
-  }
-
-  T back () {
-    if (!this -> head) {
-      throw std::runtime_error("The list is empty");
-    }
-    return this -> tail -> data;
-  }
-  
   void push_front (T value) {
     Node <T>* newNode = new Node <T> (value);
     if (this -> nodes == 0) {
@@ -44,7 +24,7 @@ public:
   
   void push_back (T value) {
     Node <T>* newNode = new Node <T> (value);
-     if (this -> nodes == 0) {
+    if (this -> nodes == 0) {
        this -> tail = newNode;
        this -> head = this -> tail;
     } else {
@@ -77,49 +57,12 @@ public:
       delete this -> tail;
       this -> tail = this -> head = nullptr;
     } else {
-      Node <T>* tmp = this -> head;
-      for (int i = 0; i < this -> nodes - 2; i++) {
-        tmp = tmp -> next;
-      }
+      Node <T>* tmp = (*this).at(this -> nodes - 2);
       delete this -> tail;
       this -> tail = tmp;
+      this -> tail -> next = nullptr;
     }
     this -> nodes--;
-  }
-
-  Node <T>* at (int index) {
-    if (not (0 <= index and index < this -> nodes)) {
-      throw std::out_of_range("The index is out of range");
-    }
-    Node <T>* tmp = this -> head;
-    for (int i = 0; i < index; i++) {
-      tmp = tmp -> next;
-    }
-    return tmp;
-  }
-
-  T operator [] (int index) {
-    return (*this).at(index) -> data;
-  }
-
-  bool empty () { return (this -> nodes == 0); }
-
-  int size () { return this -> nodes; }
-
-  void clear () {
-    this -> head -> killAll();
-    this -> head = this -> tail = 0;
-    this -> nodes = 0;
-  }
-
-  void sort () {
-    for (int i = 0; i < this -> nodes; i++) {
-      for (int j = i + 1; j < this -> nodes; j++) {
-        if ((*this)[i] > (*this)[j]) {
-          std::swap((*this).at(i) -> data, (*this).at(j) -> data);
-        }
-      }
-    }
   }
 
   void reverse () {

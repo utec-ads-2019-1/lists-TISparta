@@ -9,8 +9,8 @@ struct Node {
   Node () {}
   Node (T data): data(data) {}
   ~Node () {}
-  void killAll () {
-    if (next) next -> killAll();
+  void kill (int nodes) {
+    if (nodes > 1) next -> kill(nodes - 1);
     delete this;
   }
 };
