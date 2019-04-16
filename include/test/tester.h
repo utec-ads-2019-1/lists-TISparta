@@ -1,10 +1,10 @@
 #ifndef TESTER_H
 #define TESTER_H
 
-#include "mocker.h"
-#include "forward.h"
-#include "linked.h"
-#include "circular.h"
+#include "test/mocker.h"
+#include "lists/forward.h"
+#include "lists/linked.h"
+#include "lists/circular.h"
 
 #define NUMBER_OF_TESTS 1
 

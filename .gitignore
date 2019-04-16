@@ -1,3 +1,9 @@
+# Obj directory
+src/obj/
+
+# Executable
+src/run
+
 # Prerequisites
 *.d
 

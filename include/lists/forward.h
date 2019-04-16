@@ -1,13 +1,13 @@
-#ifndef LINKED_H
-#define LINKED_H
+#ifndef FORWARD_H
+#define FORWARD_H
 
-#include "list.h"
-#include "bidirectional_iterator.h"
+#include "iterators/forward_iterator.h"
+#include "lists/list.h"
 
 template <typename T>
-class LinkedList: public List <T> {
+class ForwardList: public List <T> {
 public:
-  LinkedList (): List <T> () {}
+  ForwardList (): List <T> () {}
 
   void push_front (T value) {
     Node <T>* newNode = new Node <T> (value);
@@ -16,20 +16,18 @@ public:
       this -> tail = this -> head;
     } else {
       newNode -> next = this -> head;
-      this -> head -> prev = newNode;
       this -> head = newNode;
     }
     this -> nodes++;
   }
-
+  
   void push_back (T value) {
     Node <T>* newNode = new Node <T> (value);
     if (this -> nodes == 0) {
-      this -> tail = newNode;
-      this -> head = this -> tail;
+       this -> tail = newNode;
+       this -> head = this -> tail;
     } else {
       this -> tail -> next = newNode;
-      newNode -> prev = this -> tail;
       this -> tail = newNode;
     }
     this -> nodes++;
@@ -46,7 +44,6 @@ public:
       Node <T>* tmp = this -> head -> next;
       delete this -> head;
       this -> head = tmp;
-      this -> head -> prev = nullptr;
     }
     this -> nodes--;
   }
@@ -59,7 +56,7 @@ public:
       delete this -> tail;
       this -> tail = this -> head = nullptr;
     } else {
-      Node <T>* tmp = this -> tail -> prev;
+      Node <T>* tmp = (*this).at(this -> nodes - 2);
       delete this -> tail;
       this -> tail = tmp;
       this -> tail -> next = nullptr;
@@ -75,27 +72,25 @@ public:
     for (int i = 0; i < this -> nodes; i++) {
       tmp = cur -> next;
       cur -> next = prev; 
-      cur -> prev = tmp;
       prev = cur;
       cur = tmp;
     }
     std::swap(this -> head, this -> tail);
   }
 
-  inline std::string name () const { return "Linked List"; }
+  inline std::string name () const { return "Forward List"; }
 
-  BidirectionalIterator <T> begin () const { return BidirectionalIterator <T> (this -> head); }
+  ForwardIterator <T> begin () const { return ForwardIterator <T> (this -> head); }
 
-  BidirectionalIterator <T> end () const { return BidirectionalIterator <T> (nullptr); }
+  ForwardIterator <T> end () const { return ForwardIterator <T> (nullptr); }
 
-  void merge (const LinkedList <T>& list) {
+  void merge (ForwardList <T>& list) {
     if (list.empty()) return;
     if (this -> nodes == 0) {
       this -> head = list.head;
       this -> tail = list.tail;
     } else {
       this -> tail -> next = list.head;
-      list.head -> prev = this -> tail;
       this -> tail = list.tail;
     }
     this -> nodes += list.nodes;

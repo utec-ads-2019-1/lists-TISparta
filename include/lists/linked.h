@@ -1,27 +1,23 @@
-#ifndef CIRCULAR_H
-#define CIRCULAR_H
+#ifndef LINKED_H
+#define LINKED_H
 
-#include "list.h"
-#include "bidirectional_iterator.h"
+#include "iterators/bidirectional_iterator.h"
+#include "lists/list.h"
 
 template <typename T>
-class CircularLinkedList: public List <T> {
+class LinkedList: public List <T> {
 public:
-  CircularLinkedList (): List <T> () {}
+  LinkedList (): List <T> () {}
 
   void push_front (T value) {
     Node <T>* newNode = new Node <T> (value);
     if (this -> nodes == 0) {
-      newNode -> next = newNode;
-      newNode -> prev = newNode;
       this -> head = newNode;
       this -> tail = this -> head;
     } else {
       newNode -> next = this -> head;
       this -> head -> prev = newNode;
       this -> head = newNode;
-      this -> head -> prev = this -> tail;
-      this -> tail -> next = this -> head;
     }
     this -> nodes++;
   }
@@ -29,16 +25,12 @@ public:
   void push_back (T value) {
     Node <T>* newNode = new Node <T> (value);
     if (this -> nodes == 0) {
-      newNode -> next = newNode;
-      newNode -> prev = newNode;
       this -> tail = newNode;
       this -> head = this -> tail;
     } else {
-      newNode -> prev = this -> tail;
       this -> tail -> next = newNode;
+      newNode -> prev = this -> tail;
       this -> tail = newNode;
-      this -> head -> prev = this -> tail;
-      this -> tail -> next = this -> head;
     }
     this -> nodes++;
   }
@@ -54,8 +46,7 @@ public:
       Node <T>* tmp = this -> head -> next;
       delete this -> head;
       this -> head = tmp;
-      this -> head -> prev = this -> tail;
-      this -> tail -> next = this -> head;
+      this -> head -> prev = nullptr;
     }
     this -> nodes--;
   }
@@ -71,15 +62,14 @@ public:
       Node <T>* tmp = this -> tail -> prev;
       delete this -> tail;
       this -> tail = tmp;
-      this -> head -> prev = this -> tail;
-      this -> tail -> next = this -> head;
+      this -> tail -> next = nullptr;
     }
     this -> nodes--;
   }
 
   void reverse () {
     if (this -> nodes <= 1) return;
-    Node <T>* prev = this -> head -> prev;
+    Node <T>* prev = nullptr;
     Node <T>* cur = this -> head;
     Node <T>* tmp = new Node <T> ();
     for (int i = 0; i < this -> nodes; i++) {
@@ -92,13 +82,13 @@ public:
     std::swap(this -> head, this -> tail);
   }
 
-  std::string name () const { return "Circular Linked List"; }
+  inline std::string name () const { return "Linked List"; }
 
   BidirectionalIterator <T> begin () const { return BidirectionalIterator <T> (this -> head); }
 
   BidirectionalIterator <T> end () const { return BidirectionalIterator <T> (nullptr); }
 
-  void merge (CircularLinkedList <T>& list) {
+  void merge (const LinkedList <T>& list) {
     if (list.empty()) return;
     if (this -> nodes == 0) {
       this -> head = list.head;
@@ -107,12 +97,9 @@ public:
       this -> tail -> next = list.head;
       list.head -> prev = this -> tail;
       this -> tail = list.tail;
-      this -> head -> prev = this -> tail;
-      this -> tail -> next = this -> head;
     }
     this -> nodes += list.nodes;
   }
-
 };
 
 #endif

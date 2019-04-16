@@ -1,6 +1,6 @@
 #include <iostream>
-#include "tester.h"
-#include "color.h"
+#include "test/tester.h"
+#include "test/color.h"
 
 struct Test {
   int correct = 0;

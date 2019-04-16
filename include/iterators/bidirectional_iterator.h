@@ -1,7 +1,7 @@
 #ifndef BIDIRECTIONAL_ITERATOR_H
 #define BIDIRECTIONAL_ITERATOR_H
 
-#include "forward_iterator.h"
+#include "iterators/forward_iterator.h"
 
 template <typename T>
 class BidirectionalIterator : public ForwardIterator <T> {
