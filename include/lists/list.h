@@ -63,9 +63,11 @@ Node <T>* List <T>::at (int index) const {
 
 template <typename T>
 void List <T>::clear () {
-  this -> head -> kill(this -> nodes);
-  this -> head = this -> tail = 0;
-  this -> nodes = 0;
+  if (this -> head) {
+    this -> head -> kill(this -> nodes);
+    this -> head = this -> tail = 0;
+    this -> nodes = 0;
+  }
 }
 
 template <typename T>
